@@ -122,7 +122,7 @@ int main() {
     printf("\nIngrese el porcentaje de error (0-100): ");
     scanf("%lf", &porcentaje_error);
 
-    // CCalcular y graficar el subdominio
+    // Calcular y graficar el subdominio
     int subdominio_encontrado = graficar(a, b, c, d, e, f, porcentaje_error);
 
     return 0;
