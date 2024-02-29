@@ -1,32 +1,33 @@
+// Juego de Tic Tac Toe con libreria GTK-3 e interfaz
+// grafica de Glade.
+
+// Importación de libreria GTK-3
 #include <gtk/gtk.h>
 
-// Variables globales
+// Variables globales: 0 para vacío, 1 para X, 2 para O
 GtkWidget *buttons[3][3];
 int currentPlayer = 0;
-int gameState[3][3] = {0}; // 0 para vacío, 1 para X, 2 para O
+int gameState[3][3] = {0};
 
 // Función para verificar el estado del juego
 int checkGameState() {
-    // Verificamos las filas
+    // Verificacion de filas
     for (int i = 0; i < 3; i++) {
         if (gameState[i][0] == gameState[i][1] && gameState[i][1] == gameState[i][2] && gameState[i][0] != 0)
             return gameState[i][0];
     }
-
-    // Verificamos las columnas
+    // Verificacion de columnas
     for (int i = 0; i < 3; i++) {
         if (gameState[0][i] == gameState[1][i] && gameState[1][i] == gameState[2][i] && gameState[0][i] != 0)
             return gameState[0][i];
     }
-
-    // Verificamos las diagonales
+     // Verificacion de las diagonales
     if (gameState[0][0] == gameState[1][1] && gameState[1][1] == gameState[2][2] && gameState[0][0] != 0)
         return gameState[0][0];
 
     if (gameState[0][2] == gameState[1][1] && gameState[1][1] == gameState[2][0] && gameState[0][2] != 0)
         return gameState[0][2];
-
-    // Verificamos si hay empate
+    // Verificacion de empate
     int isDraw = 1;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
@@ -45,15 +46,14 @@ int checkGameState() {
     return 0;
 }
 
-// Función para manejar el clic en un botón
+// Función para los clics
 void button_clicked(GtkWidget *widget, gpointer data) {
     int index = GPOINTER_TO_INT(data);
     int row = index / 3;
     int col = index % 3;
-
     // Verificamos si la casilla está vacía
     if (gameState[row][col] == 0) {
-        // Marcamos la casilla según el jugador actual
+        // Marcar la casilla segun el jugador
         if (currentPlayer == 0) {
             gtk_button_set_label(GTK_BUTTON(widget), "X");
             gameState[row][col] = 1;
@@ -63,7 +63,6 @@ void button_clicked(GtkWidget *widget, gpointer data) {
         }
         // Cambiamos de jugador
         currentPlayer = !currentPlayer;
-
         // Verificamos el estado del juego
         int result = checkGameState();
         if (result != 0) {
@@ -83,17 +82,15 @@ void button_clicked(GtkWidget *widget, gpointer data) {
 }
 
 int main(int argc, char *argv[]) {
-    // Inicializamos GTK
+    // Iniciamos GTK
     gtk_init(&argc, &argv);
 
     // Cargamos la interfaz gráfica desde el archivo Glade
     GtkBuilder *builder = gtk_builder_new();
     gtk_builder_add_from_file(builder, "karol.glade", NULL);
-
     // Obtenemos el objeto ventana y conectamos la señal para cerrar la aplicación
     GtkWidget *window = GTK_WIDGET(gtk_builder_get_object(builder, "mainWindow"));
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
-
     // Obtenemos los botones y conectamos la señal para manejar el clic
     char buttonName[20];
     for (int i = 0; i < 3; i++) {
@@ -109,7 +106,4 @@ int main(int argc, char *argv[]) {
 
     // Iniciamos el bucle principal de GTK
     gtk_main();
-
-    return 0;
-}
 
