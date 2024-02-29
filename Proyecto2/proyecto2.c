@@ -69,13 +69,6 @@ int graficar(double a, double b, double c, double d, double e, double f, double 
             fprintf(fp, "set object rect from %f, graph 0 to %f, graph 1 fc rgb 'green' fillstyle solid border -1\n", start_x, end_x);
             intervalo = 0;  // Indicador de subdominio = False
         }
-
-        if (error > porcentaje_error && intervalo) {
-            end_x = x - 0.1;
-            // Flecha desde el punto de de inicio del subdominio hasta el punto final del subdominio
-            fprintf(fp, "set arrow from %f,%f to %f,%f nohead lc rgb 'red'\n", start_x, funcion_cuadratica(a, b, c, start_x), end_x, funcion_cuadratica(a, b, c, end_x));
-            intervalo = 0;
-        }
     }
 
     // Imprimir datos de la función g
