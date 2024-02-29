@@ -1,5 +1,8 @@
-// Juego de Tic Tac Toe con libreria GTK-3 e interfaz
-// grafica de Glade.
+// Juego de Tic Tac Toe (Gato) con libreria GTK-3 e interfaz
+// grafica de Glade. Grupo 8
+// Estudiantes: Karol Hernandez Morera
+//              Oscar Rojas Rojas
+//              Steven Ruiz Urbina
 
 // Importación de libreria GTK-3
 #include <gtk/gtk.h>
